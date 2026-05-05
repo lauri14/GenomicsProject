@@ -41,12 +41,6 @@ bgzip trio${num}.vcf
 bcftools index trio${num}.vcf.gz
 
 
-# single line version of the if block
-if [ "$num" -eq 1 ] || [ "$num" -eq 4 ] || [ "$num" -eq 5 ]; then bcftools view -R ../chr20_ILMN_Exome_2.0_Plus_Panel.hg38_padded.bed trio${num}.vcf.gz | bcftools view -S ../samples.txt | bcftools view -i 'GT[0]="AA" && GT[1]="RA" && GT[2]="RA"' | bcftools filter -i 'QUAL>20' -Ov -o trio${num}.cand.vcf; elif [ "$num" -eq 3 ]; then bcftools view -R ../chr20_ILMN_Exome_2.0_Plus_Panel.hg38_padded.bed trio${num}.vcf.gz | bcftools view -S ../samples.txt | bcftools view -i 'GT[0]!="RR" && GT[1]="RR" && GT[2]="RR"' | bcftools filter -i 'QUAL>20' -Ov -o trio${num}.cand.vcf; elif [ "$num" -eq 2 ]; then bcftools view -R ../chr20_ILMN_Exome_2.0_Plus_Panel.hg38_padded.bed trio${num}.vcf.gz | bcftools view -S ../samples.txt | bcftools view -i 'GT[0] != "RR" && (GT[1] != "RR" || GT[2] != "RR")' | bcftools filter -i 'QUAL>20' -Ov -o trio${num}.cand.vcf; fi
-
-
-
-
 ##########
 #if block for inherithance conditions
 
